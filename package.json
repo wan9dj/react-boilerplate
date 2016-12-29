@@ -1,0 +1,49 @@
+{
+  "name": "react-boilerplate",
+  "version": "0.0.1",
+  "description": "一个小项目的react脚手架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wan9dj/react-boilerplate.git"
+  },
+  "keywords": [
+    "react",
+    "mobx",
+    "webpack",
+    "postcss",
+    "babel"
+  ],
+  "author": "wan9dj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wan9dj/react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/wan9dj/react-boilerplate#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.6.0",
+    "babel": "^6.5.2",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "css-loader": "^0.26.1",
+    "cssnano": "^3.9.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-loader": "^1.2.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.0-rc.1",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-router": "^3.0.0",
+    "mobx": "^2.7.0",
+    "mobx-react": "^4.0.4",
+  }
+}
