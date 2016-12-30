@@ -1,9 +1,18 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Home from './pages/home'
+import {inject,observer} from 'mobx-react';
+import Main from './pages/main';
 
-console.log(Home)
-
+let Main1 = ({ field }) => <h1>field {field}</h1>
+Main1 = inject(stores=>{
+  console.log(stores);
+  return {
+    field:stores.MainStore.field
+  }
+})(observer(Main1))
 export default (
-  <Route path="/" component={Home} />
+  <Route path="/">
+    <IndexRoute component={Main} />
+    <Route path="main1" component={Main1} />
+  </Route>
 );

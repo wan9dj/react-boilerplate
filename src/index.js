@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, hashHistory  } from 'react-router';
+import {Provider} from 'mobx-react';
 import routes from './routes';
+import Stores from './store';
 
 ReactDOM.render(
-  <Router routes={routes} history={browserHistory} />
+  <Provider {...Stores}>
+    <Router routes={routes} history={hashHistory} />
+  </Provider>
 , document.getElementById('app'));

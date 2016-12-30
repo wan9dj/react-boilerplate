@@ -20,3 +20,7 @@
 1. 处理样式的兼容性（autoprefixer）
 2. 能够按照使用以后的css规范编写css（postcss-cssnext）
 3. 压缩css代码（cssnano）
+
+## 暂未解决的Bug
+1. css-loader 在使用了CssModule之后,引用在当前目录下面图片 ` background-image:url(./xxx.xx) ` 
+会报找不到模块 ` xxx.xx ` 错误,而使用 ` background-image:url(../**/xxx.xx) ` 能够成功找到对应文件 

@@ -1,3 +1,4 @@
-export class Store {
-    @observable title = "";
+import MainStore from './mainstore'
+export default {
+    MainStore:new MainStore()
 }
