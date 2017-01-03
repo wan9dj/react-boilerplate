@@ -5,7 +5,6 @@ import Main from './pages/main';
 
 let Main1 = ({ field }) => <h1>field {field}</h1>
 Main1 = inject(stores=>{
-  console.log(stores);
   return {
     field:stores.MainStore.field
   }

@@ -1,20 +1,25 @@
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    vendor: ["react", "react-dom"],
+    app: "./src/index.js"
+  },
   module: { // 模块
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [
-                    {
+                use: [{
                         loader: "babel-loader",
                         options: {
-                            "plugins": ["transform-decorators-legacy"],
-                            "presets": ["es2015","react","stage-2"]
+                            "plugins": [
+                                "transform-decorators-legacy"
+                            ],
+                            "presets": ["es2015-native-modules","react","stage-2"] //如果要使用 webpack2 的tree shaking 特性的话，将es2015 改成 es2015-native-modules。 但是使用tree shaking ,webpack 就不能够将代码打包为commonjs代码
                         }
                     }
                 ]
@@ -28,7 +33,7 @@ module.exports = {
                 //     'postcss-loader'
                 // ]
                 loader:ExtractTextPlugin.extract({
-                    loader:['css-loader?importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 
+                    loader:['css-loader?minimize&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 
                             'postcss-loader'],
                     fallbackLoader:'style-loader',
                 })
@@ -40,23 +45,41 @@ module.exports = {
         ]
     },
     output:{ // 输出文件
-        filename: "bundle.js",
+        filename: "[name].js",
         path: "./dist",
     },
     devServer: { // webpack-dev-server 配置
         contentBase: './dist/',
         compress: true,
         port: 3000,
-        hot:true
+        inline:true
     },
     plugins: [ // 插件
         new ExtractTextPlugin('style.css'), // 将css代码从打包的js代码中分离出一个文件,
-        new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin({// 使用模板文件创建html与其引用
+            title: 'react-bolierplate',
             "files": {
                 "css": [ "style.css" ],
-                "js": [ "bundle.js"],
+                "js": [ "vendor.js","app.js"],
             },
             "template": 'index.ejs'
+        }),
+        new CommonsChunkPlugin({// 优化内容，打包公共库代码，实现缓存优化
+            name: "vendor",
+            minChunks: Infinity,
         })
-    ]
+    ],
+    resolve: {
+        mainFields: ['jsnext:main','main'],
+        modules: [path.resolve(__dirname, 'node_modules')],
+        alias: {
+            'react': 'react/dist/react.js',
+            'react-dom': 'react-dom/dist/react-dom.js',
+            'react-dom': 'react-dom/dist/react-dom.js'
+        }
+    },
+    node: {
+        fs: "empty",
+        net: "empty"
+    }
 }

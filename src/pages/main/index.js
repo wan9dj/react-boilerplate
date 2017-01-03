@@ -9,7 +9,6 @@ class Main extends React.Component{
     }
     render(){
         const {field} = this.props.MainStore;
-        console.log(this.props,style.main)
         return (
             <div className="main">
                 <h1>Main</h1>

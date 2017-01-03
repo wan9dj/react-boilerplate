@@ -1,6 +1,14 @@
 # react-boilerplate
 一个小项目的react脚手架
 
+使用方式:
+```
+    // 打包
+    npm run build
+    // 开发
+    npm run server
+```
+
 这个项目用到:
 + [Mobx](https://www.npmjs.com/package/mobx) 
 + [Webpack 2.x](https://www.npmjs.com/package/webpack) 
@@ -9,6 +17,9 @@
 + [PostCSS](https://github.com/postcss/postcss) 
 + [CSS Modules](https://github.com/css-modules/css-modules) 
 + [Babel](https://github.com/babel/babel) 
+
+即将加入:
++ 使用[ESLint](https://github.com/eslint/eslint)对代码格式进行处理
 
 ## webpack 需要完成的任务
 1. es2015 js代码的编译
@@ -24,3 +35,4 @@
 ## 暂未解决的Bug
 1. css-loader 在使用了CssModule之后,引用在当前目录下面图片 ` background-image:url(./xxx.xx) ` 
 会报找不到模块 ` xxx.xx ` 错误,而使用 ` background-image:url(../**/xxx.xx) ` 能够成功找到对应文件 
+2. 使用 hotModuleReplace 感觉并没有想要的效果，没有反应。
