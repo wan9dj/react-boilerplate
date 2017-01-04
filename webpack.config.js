@@ -4,9 +4,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 module.exports = {
+  context: __dirname + "/src",
   entry: {
     vendor: ["react", "react-dom"],
-    app: "./src/index.js"
+    app: "./index.js"
   },
   module: { // 模块
         rules: [
@@ -46,10 +47,10 @@ module.exports = {
     },
     output:{ // 输出文件
         filename: "[name].js",
-        path: "./dist",
+        path: __dirname + "/dist",
     },
     devServer: { // webpack-dev-server 配置
-        contentBase: './dist/',
+        contentBase: __dirname + '/dist/',
         compress: true,
         port: 3000,
         inline:true
