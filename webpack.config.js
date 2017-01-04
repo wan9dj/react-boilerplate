@@ -50,7 +50,7 @@ module.exports = {
         path: __dirname + "/dist",
     },
     devServer: { // webpack-dev-server 配置
-        contentBase: __dirname + '/dist/',
+        // contentBase: __dirname + '/src/',
         compress: true,
         port: 3000,
         inline:true
