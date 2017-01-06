@@ -3,10 +3,12 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
+let extractCSS = new ExtractTextPlugin('style.css');
+
 module.exports = {
   context: __dirname + "/src",
   entry: {
-    vendor: ["react", "react-dom"],
+    vendor: ["react", "react-dom", "mobx", "mobx-react", "react-router"],
     app: "./index.js"
   },
   module: { // 模块
@@ -33,15 +35,23 @@ module.exports = {
                 //     'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
                 //     'postcss-loader'
                 // ]
-                loader:ExtractTextPlugin.extract({
-                    loader:['css-loader?minimize&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 
+                loader:extractCSS.extract({
+                    loader:['css-loader?minimize&modules&importLoaders=1&localIdentName=[name]-[local]___[hash:base64:5]', 
                             'postcss-loader'],
                     fallbackLoader:'style-loader',
                 })
             },
             { 
                 test: /\.(png|jpg|jpeg|gif|woff)$/, 
-                loader: 'url-loader?limit=25000&name=imgs/[name].[ext]',
+                use:[
+                    {
+                        loader:"url-loader",
+                        options:{
+                            "limit":25000,
+                            "name":"imgs/[name].[ext]"
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -56,7 +66,7 @@ module.exports = {
         inline:true
     },
     plugins: [ // 插件
-        new ExtractTextPlugin('style.css'), // 将css代码从打包的js代码中分离出一个文件,
+        extractCSS, // 将css代码从打包的js代码中分离出一个文件,
         new HtmlWebpackPlugin({// 使用模板文件创建html与其引用
             title: 'react-bolierplate',
             "files": {
@@ -76,7 +86,8 @@ module.exports = {
         alias: {
             'react': 'react/dist/react.js',
             'react-dom': 'react-dom/dist/react-dom.js',
-            'react-dom': 'react-dom/dist/react-dom.js'
+            'mobx': 'mobx/lib/mobx.js',
+            'mobx-react': 'mobx-react/index.js'
         }
     },
     node: {

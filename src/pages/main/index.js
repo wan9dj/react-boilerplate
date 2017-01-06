@@ -10,7 +10,7 @@ class Main extends React.Component{
     render(){
         const {field} = this.props.MainStore;
         return (
-            <div className="main">
+            <div className={style.main}>
                 <h1>Main</h1>
                 <div>
                     <input type="text" value={field} onChange={this.changeTitle.bind(this)} placeholder="修改store的field值" />
