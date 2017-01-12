@@ -2,7 +2,8 @@ var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-
+var DefinePlugin = require("webpack/lib/DefinePlugin");
+var UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin")
 let extractCSS = new ExtractTextPlugin('style.css');
 
 module.exports = {
@@ -81,6 +82,12 @@ module.exports = {
         inline:true
     },
     plugins: [ // 插件
+        new DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new UglifyJsPlugin(),
         extractCSS, // 将css代码从打包的js代码中分离出一个文件,
         new HtmlWebpackPlugin({// 使用模板文件创建html与其引用
             title: 'react-bolierplate',
@@ -99,8 +106,8 @@ module.exports = {
         mainFields: ['jsnext:main','main'],
         modules: [path.resolve(__dirname, 'node_modules')],
         alias: {
-            'react': 'react/dist/react.js',
-            'react-dom': 'react-dom/dist/react-dom.js',
+            // 'react': 'react/dist/react.js', // 不增加这个能够使react打包的之后的文件更小
+            // 'react-dom': 'react-dom/dist/react-dom.js',
             'mobx': 'mobx/lib/mobx.js',
             'mobx-react': 'mobx-react/index.js'
         }
