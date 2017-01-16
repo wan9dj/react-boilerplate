@@ -1,5 +1,5 @@
-import {observable} from "mobx";
+import { observable } from 'mobx';
 
 export default class MainStore {
-    @observable field = "title"
+    @observable field = 'title'
 }

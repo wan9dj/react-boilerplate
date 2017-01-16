@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, hashHistory  } from 'react-router';
-import {Provider} from 'mobx-react';
+import { Router, hashHistory } from 'react-router';
+import { Provider } from 'mobx-react';
 import routes from './routes';
 import Stores from './store';
 

@@ -1,19 +1,33 @@
-var path = require('path');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-var DefinePlugin = require("webpack/lib/DefinePlugin");
-var UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin")
-let extractCSS = new ExtractTextPlugin('style.css');
+/*eslint-disable*/
+const path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+const DefinePlugin = require("webpack/lib/DefinePlugin");
+const UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
+const EsLintConf = require("./.eslintrc");
+const extractCSS = new ExtractTextPlugin('style.css');
 
 module.exports = {
   context: __dirname + "/src",
   entry: {
     vendor: ["react", "react-dom", "mobx", "mobx-react", "react-router"],
-    app: "./index.js"
+    app: "./index"
   },
   module: { // 模块
         rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                enforce: "pre",
+                use: [{
+                        loader: "eslint-loader",
+                        options: Object.assign({
+                            fix: true
+                        },EsLintConf)
+                    }
+                ]
+            },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -103,6 +117,7 @@ module.exports = {
         })
     ],
     resolve: {
+        extensions: [".js", ".json", ".jsx", ".css"],
         mainFields: ['jsnext:main','main'],
         modules: [path.resolve(__dirname, 'node_modules')],
         alias: {
